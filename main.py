@@ -80,3 +80,78 @@ def victory_condition():
         return "DEFEAT"
     elif "-" not in board:
         return "TIE"
+
+
+
+#check if victory_condition returns a value         
+def true_false():
+    if victory_condition() == "DEFEAT" or victory_condition() == "VICTORY" or victory_condition() == "TIE":
+        return True
+    else:
+        return False 
+
+
+#print victory_screen according to game result
+def print_victory():
+    if victory_condition() == "VICTORY":
+        return victory_screen("VICTORY","win")
+    elif victory_condition() == "DEFEAT":
+        return victory_screen("DEFEAT","lose")
+    elif victory_condition() == "TIE":
+        return victory_screen("TIE","lose")
+
+
+
+
+
+#BOT ALGORITHM 
+#easy mode 
+def easy_bot_move():
+    i = 0
+    for i in range (len(board)):
+        if board[i] == "X" or board[i] == "O":
+            i+=1
+        elif board[i] == "-":
+            board[i] = "O"
+            break
+
+#random mode 
+import random
+from random import randrange
+def random_bot_move():
+    for i in range(len(board)):
+        i = randrange(len(board))
+        if board[i] == "-":
+            board[i] = "O"
+            break
+        elif board[i] == "X" or board[i] == "O":
+            i = randrange(len(board))
+
+
+
+
+
+#GAME RUN 
+
+print(game_start_screen("GAME START_"))
+print_board()
+true_false()
+while not true_false() == True:
+    while True:
+            try:
+                case = int(input('case '))
+                if case < 1 or case > 9:
+                    raise ValueError #this will send it to the print message and back to the input option
+                break
+            except ValueError:
+                print("Invalid integer. The input must be in the range of 1-9.")
+    print(player_move(case,input("play ")))
+    true_false()
+    if true_false() == True:
+        print (print_victory())
+        break
+    print(random_bot_move())
+    print(print_board())
+    true_false()
+    if true_false() == True:
+        print (print_victory())
