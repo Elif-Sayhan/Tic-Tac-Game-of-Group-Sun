@@ -126,6 +126,7 @@ def random_bot_move():
             break
         elif board[i] == "X" or board[i] == "O":
             i = randrange(len(board))
+            continue
 
 
 
